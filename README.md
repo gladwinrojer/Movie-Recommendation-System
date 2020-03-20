@@ -4,19 +4,19 @@
 ## Types of Recommendation Engines
 ### 1. Content-Based
 ### 2. Collaborative Filtering
-  The Collaborative Filtering Recommender is entirely based on the past behavior and not on the context. More specifically, it is based on the similarity in preferences, tastes and choices of two users. It analyses how similar the tastes of one user is to another and makes recommendations on the basis of that.
+  * The Collaborative Filtering Recommender is entirely based on the past behavior and not on the context. More specifically, it is based on the similarity in preferences, tastes and choices of two users. It analyses how similar the tastes of one user is to another and makes recommendations on the basis of that.
 
-  For instance, if user A likes movies 1, 2, 3 and user B likes movies 2,3,4, then they have similar interests and A should like movie 4 and B should like movie 1. This makes it one of the most commonly used algorithm as it is not dependent on any additional information.
+  * For instance, if user A likes movies 1, 2, 3 and user B likes movies 2,3,4, then they have similar interests and A should like movie 4 and B should like movie 1. This makes it one of the most commonly used algorithm as it is not dependent on any additional information.
 
-  In general, collaborative filtering is the workhorse of recommender engines. The algorithm has a very interesting property of being able to do feature learning on its own, which means that it can start to learn for itself what features to use. It can be divided,
+  * In general, collaborative filtering is the workhorse of recommender engines. The algorithm has a very interesting property of being able to do feature learning on its own, which means that it can start to learn for itself what features to use. It can be divided,
 #### a. Memory-Based Collaborative Filtering
 #### b. Model-Based Collaborative filtering
 
-  We are going to use Model-Based Collaborative filtering using Deep Learning. Model-based Collaborative Filtering is based on matrix factorization (MF).
+  *We are going to use Model-Based Collaborative filtering using Deep Learning. Model-based Collaborative Filtering is based on matrix factorization (MF).
   
 ## Matrix Factorization (MF):
-   The idea behind matrix factorization models is that preferences of a user can be determined by a small number of hidden factors/features. We can call these factors as Embeddings. Intuitively, we can understand embeddings as low dimensional hidden factors for movies and users. These embeddings represent different characteristics for users and movies.
-   The goal of MF is to learn the hidden preferences of users and the hidden attributes of movie items from known ratings to then predict the unknown ratings through the dot product of the hidden features of users and movie items.
+   * The idea behind matrix factorization models is that preferences of a user can be determined by a small number of hidden factors/features. We can call these factors as Embeddings. Intuitively, we can understand embeddings as low dimensional hidden factors for movies and users. These embeddings represent different characteristics for users and movies.
+   * The goal of MF is to learn the hidden preferences of users and the hidden attributes of movie items from known ratings to then predict the unknown ratings through the dot product of the hidden features of users and movie items.
 
 ## Building the Model
    14 years ago, Netflix started the Netflix challenge. A contest to see if someone can come up with better recommendation system. One of the best techniques that came out of the contest was a SPARSE MATRIX FACTORING MODEL by SIMON FUNK. The basic idea is that the actual ratings of movies for each user can be represented by a matrix, say of users on the rows and movies along the columns. This matrix will mostly have 0's in it. Such a matric is called SPARSE MATRIX. But if we could factorize this sparse matrix into two separate matrices, say one that was USERS BY LATENT(hidden) FACTORS, and one that was MOVIES BY LATENT(hidden) FACTORS, then we could find the user’s rating for any movie by taking the DOT PRODUCT of the User row and the Movie column.
@@ -27,10 +27,10 @@ Also checkout the image in this repository.
 
 Here are the main components of Simon Funk architecture:
 
-   -> A left embedding layer that creates a Users by Latent Factors matrix.
-   -> A right embedding layer that creates a Movies by Latent Factors matrix.
-   -> When the input to these layers are (i) a user id and (ii) a movie id, they'll return the latent factor vectors for the user and the movie, respectively.
-   -> A merge layer that takes the dot product of these two latent vectors to return the predicted rating.
+   * -> A left embedding layer that creates a Users by Latent Factors matrix.
+   * -> A right embedding layer that creates a Movies by Latent Factors matrix.
+   * -> When the input to these layers are (i) a user id and (ii) a movie id, they'll return the latent factor vectors for the user and the movie, respectively.
+   * -> A merge layer that takes the dot product of these two latent vectors to return the predicted rating.
     
 ## Deep Learning 
    Using Deep Learning we train our model to learn the values of embedding matrix itself. The user latent features and movie latent features are looked up from the embedding matrices for specific movie-user combination. These are the input values for further linear and non-linear layers. We can pass this input to multiple relu, linear or sigmoid layers and learn the corresponding weights by any optimization algorithm (Adam, SGD, etc.). Callbacks monitor the validation loss and we save the model weights each time the validation loss has improved.
